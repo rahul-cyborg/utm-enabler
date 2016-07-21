@@ -1,36 +1,45 @@
 # UtmEnabler
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/utm_enabler`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to UtmEnabler gem!. This gem for setting utm parameters in cookies using ParamsReader as rack middleware and storing in database after Registartion.
 
-TODO: Delete this and the text above, and describe your gem
+## Limitations
+
+1. This gem can be integrated only with Rails app.
+2. For Installing this gem Rails app must have User Model. This gem can not be integrated with Admin Model.
+3. `utm_source` parameter must be pass on landing page url.
+
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'utm_enabler'
+gem 'utm_enabler', git: 'git@vault.cybrilla.com:reusable/utm-enabler.git', tag: 'v0.1.0'
 ```
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
-Or install it yourself as:
+And then execute:- for generation model
 
-    $ gem install utm_enabler
+    $ rails generate utm_enabler:install
 
-## Usage
+And then execute:-
 
-TODO: Write usage instructions here
+    $ rake db:migrate
 
-## Development
+Add this line of code in User Model:
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```ruby
+include UtmEnabler
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Add this line of code in your registration function:
 
-## Contributing
+```ruby
+user.wtire_params(cookies)
+```
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/utm_enabler.
+
 
